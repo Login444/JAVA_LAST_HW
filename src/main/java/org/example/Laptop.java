@@ -9,6 +9,7 @@ public class Laptop {
     private Integer RAM;
     private Integer HDD;
 
+
     public Laptop(String brand, String model, String color, Double screenSize, String OS, Integer RAM, Integer HDD) {
         this.brand = brand;
         this.model = model;
