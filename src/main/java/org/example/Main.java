@@ -24,20 +24,41 @@ public class Main {
         Laptop laptop9 = new Laptop("Sony", "Pony", "Green", 22.0,
                 "Windows", 8, 128);
 
+        Set laptops = new HashSet<>();
+        laptops.add(laptop1);
+        laptops.add(laptop2);
+        laptops.add(laptop3);
+        laptops.add(laptop4);
+        laptops.add(laptop5);
+        laptops.add(laptop6);
+        laptops.add(laptop7);
+        laptops.add(laptop8);
+        laptops.add(laptop9);
+
+        for (Object laptop : laptops) {
+            System.out.println(laptop);
+
+        }
+
+
+
         List<Laptop> laptopList = new ArrayList<>();
         laptopList.add(laptop1); laptopList.add(laptop2); laptopList.add(laptop3); laptopList.add(laptop4);
         laptopList.add(laptop5); laptopList.add(laptop6); laptopList.add(laptop7); laptopList.add(laptop8);
         laptopList.add(laptop9);
 
-        for (int i = 0; i < laptopList.size(); i++) {
-            System.out.println("Brand: " + laptopList.get(i).getBrand()
-                    + "; Model: " + laptopList.get(i).getModel()
-                    + "; Color: " + laptopList.get(i).getColor()
-                    + "; Diagonal: " + laptopList.get(i).getScreenSize()
-                    + " inches; OS: " + laptopList.get(i).getOS()
-                    + "; RAM: " + laptopList.get(i).getRAM()
-                    + "; HDD: " + laptopList.get(i).getHDD());
-        }
+        /**
+         * for (int i = 0; i < laptopList.size(); i++) {
+         *             System.out.println("Brand: " + laptopList.get(i).getBrand()
+         *                     + "; Model: " + laptopList.get(i).getModel()
+         *                     + "; Color: " + laptopList.get(i).getColor()
+         *                     + "; Diagonal: " + laptopList.get(i).getScreenSize()
+         *                     + " inches; OS: " + laptopList.get(i).getOS()
+         *                     + "; RAM: " + laptopList.get(i).RAM()
+         *                     + "; HDD: " + laptopList.get(i).getHDD());
+         *         }
+         */
+
 
         filter(laptopList);
 
