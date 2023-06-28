@@ -24,183 +24,156 @@ public class Main {
         Laptop laptop9 = new Laptop("Sony", "Pony", "Green", 22.0,
                 "Windows", 8, 128);
 
-        Set laptops = new HashSet<>();
-        laptops.add(laptop1);
-        laptops.add(laptop2);
-        laptops.add(laptop3);
-        laptops.add(laptop4);
-        laptops.add(laptop5);
-        laptops.add(laptop6);
-        laptops.add(laptop7);
-        laptops.add(laptop8);
-        laptops.add(laptop9);
+        HashSet<Laptop> laptops = new HashSet<>(Arrays.asList(laptop1, laptop2, laptop3,
+                laptop4, laptop5, laptop6, laptop7, laptop8, laptop9));
+        HashSet<Laptop> result = new HashSet<>();
+        HashMap<String, Object> filter = new HashMap<>();
 
-        for (Object laptop : laptops) {
-            System.out.println(laptop);
-
-        }
-
-
-
-        List<Laptop> laptopList = new ArrayList<>();
-        laptopList.add(laptop1); laptopList.add(laptop2); laptopList.add(laptop3); laptopList.add(laptop4);
-        laptopList.add(laptop5); laptopList.add(laptop6); laptopList.add(laptop7); laptopList.add(laptop8);
-        laptopList.add(laptop9);
-
-        /**
-         * for (int i = 0; i < laptopList.size(); i++) {
-         *             System.out.println("Brand: " + laptopList.get(i).getBrand()
-         *                     + "; Model: " + laptopList.get(i).getModel()
-         *                     + "; Color: " + laptopList.get(i).getColor()
-         *                     + "; Diagonal: " + laptopList.get(i).getScreenSize()
-         *                     + " inches; OS: " + laptopList.get(i).getOS()
-         *                     + "; RAM: " + laptopList.get(i).RAM()
-         *                     + "; HDD: " + laptopList.get(i).getHDD());
-         *         }
-         */
-
-
-        filter(laptopList);
-
-
-    }
-
-    private static void filter(List<Laptop> laptopList) {
         Scanner scan = new Scanner(System.in);
-        System.out.println("\nFilter:"
-                + "\n1.Brand"
-                + "\n2.Model"
-                + "\n3.Color"
-                + "\n4.Diagonal"
-                + "\n5.OS"
-                + "\n6.RAM"
-                + "\n7.HDD"
-                + "\n8.Exit");
+        System.out.println("Укажите критерий фильтрации:" +
+                "\n1.Бренд" +
+                "\n2.Модель" +
+                "\n3.Цвет" +
+                "\n4.Диагональ экрана" +
+                "\n5.Операционная система" +
+                "\n6.ОЗУ" +
+                "\n7.Жесткий диск" +
+                "\n8.Выход");
         int n = scan.nextInt();
-        switch (n){
-            case 1:
-                brandFilter(laptopList);
-                break;
-            case 2:
-                modelFilter(laptopList);
-                break;
-            case 3:
-                colorFilter(laptopList);
-                break;
-            case 4:
-                diagonalFilter(laptopList);
-                break;
-            case 5:
-                osFilter(laptopList);
-                break;
-            case 6:
-                ramFilter(laptopList);
-                break;
-            case 7:
-                hddFilter(laptopList);
-                break;
-            case 8:
-                break;
-            default:
-                filter(laptopList);
-                break;
-        }
-    }
-    private static void showFilteredMap(Map<Integer, String> any) {
-        for (String value : any.values()) {
-            System.out.println(value);
-        }
-    }
 
-    private static void hddFilter(List<Laptop> laptopList) {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Укажите размер жесткого диска: ");
-        int n = scan.nextInt();
-        Map<Integer, String> filterMap = new HashMap<>();
-        for (int i = 0; i < laptopList.size(); i++) {
-            if (laptopList.get(i).getHDD() == n){
-                filterMap.put(i, laptopList.get(i).toString());
+        while (n != 8){
+            if (n == 1){
+                System.out.println("Введите название бренда: ");
+                String tmp = scan.next().toLowerCase();
+                filter.put("Brand", tmp);
+            }
+
+            if (n==2){
+                System.out.println("Введите название модели: ");
+                String tmp = scan.next().toLowerCase();
+                filter.put("Model", tmp);
+            }
+
+            if (n==3){
+                System.out.println("Введите цвет: ");
+                String tmp = scan.next().toLowerCase();
+                filter.put("Color", tmp);
+            }
+
+            if (n==4){
+                System.out.println("Введите минимальную диагональ: ");
+                double tmp = scan.nextDouble();
+                filter.put("screenSize", tmp);
+            }
+
+            if (n==5){
+                System.out.println("Введите тип операционной системы: ");
+                String tmp = scan.next().toLowerCase();
+                filter.put("OS", tmp);
+            }
+
+            if (n==6){
+                System.out.println("Введите минимальный размер ОЗУ: ");
+                int tmp = scan.nextInt();
+                filter.put("RAM", tmp);
+            }
+
+            if (n==7){
+                System.out.println("Введите минимальный размер жесткого диска: ");
+                int tmp = scan.nextInt();
+                filter.put("HDD", tmp);
+            }
+
+            System.out.println("Укажите критерий фильтрации:" +
+                    "\n1.Бренд" +
+                    "\n2.Модель" +
+                    "\n3.Цвет" +
+                    "\n4.Диагональ экрана" +
+                    "\n5.Операционная система" +
+                    "\n6.ОЗУ" +
+                    "\n7.Жесткий диск" +
+                    "\n8.Выход");
+            n = scan.nextInt();
+        }
+
+        for (Map.Entry<String,Object> entry : filter.entrySet()) {
+                if (entry.getKey().equals("Brand")) {
+                    Iterator<Laptop> search = laptops.iterator();
+                    while (search.hasNext()) {
+                        Laptop laptop = search.next();
+                        if (laptop.getBrand().toLowerCase().equals(entry.getValue())) {
+                            result.add(laptop);
+                        }
+                    }
+                }
+
+                if (entry.getKey().equals("Model")) {
+                    Iterator<Laptop> search = laptops.iterator();
+                    while (search.hasNext()) {
+                        Laptop laptop = search.next();
+                        if (laptop.getModel().toLowerCase().equals(entry.getValue())) {
+                            result.add(laptop);
+                        }
+                    }
+                }
+
+                if (entry.getKey().equals("Color")) {
+                    Iterator<Laptop> search = laptops.iterator();
+                    while (search.hasNext()) {
+                        Laptop laptop = search.next();
+                        if (laptop.getColor().toLowerCase().equals(entry.getValue())) {
+                            result.add(laptop);
+                        }
+                    }
+                }
+
+                if (entry.getKey().equals("screenSize")) {
+                    Iterator<Laptop> search = laptops.iterator();
+                    while (search.hasNext()) {
+                        Laptop laptop = search.next();
+                        if (laptop.getScreenSize() > (Double) entry.getValue()) {
+                            result.add(laptop);
+                        }
+                    }
+                }
+
+                if (entry.getKey().equals("OS")) {
+                    Iterator<Laptop> search = laptops.iterator();
+                    while (search.hasNext()) {
+                        Laptop laptop = search.next();
+                        if (laptop.getOS().toLowerCase().equals(entry.getValue())) {
+                            result.add(laptop);
+                        }
+                    }
+                }
+
+                if (entry.getKey().equals("RAM")) {
+                    Iterator<Laptop> search = laptops.iterator();
+                    while (search.hasNext()) {
+                        Laptop laptop = search.next();
+                        if (laptop.getRAM() > (Integer) entry.getValue()) {
+                            result.add(laptop);
+                        }
+                    }
+                }
+
+                if (entry.getKey().equals("HDD")) {
+                    Iterator<Laptop> search = laptops.iterator();
+                    while (search.hasNext()) {
+                        Laptop laptop = search.next();
+                        if (laptop.getHDD() > (Integer) entry.getValue()) {
+                            result.add(laptop);
+                        }
+                    }
+                }
+
+            Iterator search = result.iterator();
+            while (search.hasNext()) {
+                Laptop laptop = (Laptop) search.next();
+                System.out.println("\n" + laptop.toString());
             }
         }
-        showFilteredMap(filterMap);
-    }
 
-    private static void ramFilter(List<Laptop> laptopList) {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Укажите размер ОЗУ: ");
-        int n = scan.nextInt();
-        Map<Integer, String> filterMap = new HashMap<>();
-        for (int i = 0; i < laptopList.size(); i++) {
-            if (laptopList.get(i).getRAM() == n){
-                filterMap.put(i, laptopList.get(i).toString());
-            }
-        }
-        showFilteredMap(filterMap);
-    }
 
-    private static void osFilter(List<Laptop> laptopList) {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Укажите операционную систему: ");
-        String n = scan.nextLine().toLowerCase();
-        Map<Integer, String> filterMap = new HashMap<>();
-        for (int i = 0; i < laptopList.size(); i++) {
-            if (laptopList.get(i).getOS().toLowerCase().contains(n)){
-                filterMap.put(i, laptopList.get(i).toString());
-            }
-        }
-        showFilteredMap(filterMap);
-    }
-
-    private static void diagonalFilter(List<Laptop> laptopList) {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Укажите диагональ экрана: ");
-        double n = scan.nextDouble();
-        Map<Integer, String> filterMap = new HashMap<>();
-        for (int i = 0; i < laptopList.size(); i++) {
-            if (laptopList.get(i).getScreenSize() == n){
-                filterMap.put(i, laptopList.get(i).toString());
-            }
-        }
-        showFilteredMap(filterMap);
-    }
-
-    private static void colorFilter(List<Laptop> laptopList) {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Укажите цвет: ");
-        String n = scan.nextLine().toLowerCase();
-        Map<Integer, String> filterMap = new HashMap<>();
-        for (int i = 0; i < laptopList.size(); i++) {
-            if (laptopList.get(i).getColor().toLowerCase().contains(n)){
-                filterMap.put(i, laptopList.get(i).toString());
-            }
-        }
-        showFilteredMap(filterMap);
-    }
-
-    private static void modelFilter(List<Laptop> laptopList) {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Укажите модель: ");
-        String n = scan.nextLine().toLowerCase();
-        Map<Integer, String> filterMap = new HashMap<>();
-        for (int i = 0; i < laptopList.size(); i++) {
-            if (laptopList.get(i).getModel().toLowerCase().contains(n)){
-                filterMap.put(i, laptopList.get(i).toString());
-            }
-        }
-        showFilteredMap(filterMap);
-    }
-
-    private static void brandFilter(List<Laptop> laptopList) {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Укажите бренд: ");
-        String n = scan.nextLine();
-        n = n.toLowerCase();
-        Map<Integer, String> filterMap = new HashMap<>();
-        for (int i = 0; i < laptopList.size(); i++) {
-            if (laptopList.get(i).getBrand().toLowerCase().contains(n)){
-                filterMap.put(i, laptopList.get(i).toString());
-            }
-        }
-        showFilteredMap(filterMap);
     }
 }
